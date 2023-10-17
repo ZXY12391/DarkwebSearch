@@ -72,6 +72,8 @@ class DarkwebSpider(scrapy.Spider):
             else:
                 self.count_nocontent+=1
                 print(f"{self.count_nocontent}没有内容：{response.url}")
+            for href in response.css('a::attr(href)').getall():
+                yield response.follow(href, callback=self.parse_site)
         else:
             self.content_bad += 1
             print(f"状态异常：{self.content_bad}")

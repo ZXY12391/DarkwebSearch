@@ -30,6 +30,6 @@ class SeekURLMongoDBPipeline:
     def close_spider(self,spider):
         self.client.close()
     def process_item(self, item, spider):
-       self.collection.insert_one({"Keyword":item["Keyword"],"URL":item["URL"],"Description":item["Description"],"Content":item['Content']})
+       self.collection.insert_one({"Keyword":item["Keyword"],"URL":item["URL"],"Description":item["Description"],"Content":item['Content'],"Type":item['Type']})
        #print(item)
        return item

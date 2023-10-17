@@ -149,6 +149,36 @@ class CxExtractor_python:
         s = re_space.sub(' ', s)
         s = self.replaceCharEntity(s)
         return s
+
+    def filter_tags1(self, htmlstr: str) -> str:
+        # re_doctype = re.compile('<![DOCTYPE|doctype].*>')
+        re_nav = re.compile('<nav.+</nav>')
+        re_cdata = re.compile('//<!\[CDATA\[.*//\]\]>', re.DOTALL)
+        re_script = re.compile(
+            '<\s*script[^>]*>.*?<\s*/\s*script\s*>', re.DOTALL | re.I)
+        re_style = re.compile(
+            '<\s*style[^>]*>.*?<\s*/\s*style\s*>', re.DOTALL | re.I)
+        re_textarea = re.compile(
+            '<\s*textarea[^>]*>.*?<\s*/\s*textarea\s*>', re.DOTALL | re.I)
+        re_br = re.compile('<br\s*?/?>')
+        re_h = re.compile('</?\w+.*?>', re.DOTALL)
+        re_comment = re.compile('<!--.*?-->', re.DOTALL)
+        re_space = re.compile(' +')
+        s = re_cdata.sub('', htmlstr)
+        # s = re_doctype.sub('',s)
+        s = re_nav.sub('', s)
+        s = re_script.sub('', s)
+        s = re_style.sub('', s)
+        s = re_textarea.sub('', s)
+        s = re_br.sub('', s)
+        s = re_h.sub('', s)
+        s = re_comment.sub('', s)
+        s = re.sub('\\t', '', s)
+        s = re_space.sub(' ', s)
+        s = self.replaceCharEntity(s)
+        # 在第二步中删除换行符
+        s = s.replace('\n', ' ').replace('\r', ' ')
+        return s
     
     
 if __name__ == '__main__':

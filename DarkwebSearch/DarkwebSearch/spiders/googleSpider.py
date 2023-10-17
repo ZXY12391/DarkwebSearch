@@ -78,9 +78,9 @@ class GoogleSpider(RedisSpider):
         if response.status==200:
             self.count_200+=1
             print(f"URL:{response.url}status:{response.status} count:{self.count_200}")
-            cx = CxExtractor_python()
-            content = cx.filter_tags(response.text)
-            clean_content = cx.getText(content)
+            cx = CxExtractor_python(threshold=186)
+            filter_content = cx.filter_tags(response.text)
+            clean_content = cx.getText(filter_content)
             """if not clean_content:
                 print(f"没有内容{response.url}")"""
             item = DarkwebsearchItem()
@@ -89,11 +89,14 @@ class GoogleSpider(RedisSpider):
             item['Keyword'] = response.meta.get('keyword')
             if clean_content:
                 item['Content'] = clean_content
+                item['Type'] = "extract"#仅做标记，实际不需要
                 self.count_content += 1
                 print(f"{self.count_content}提取内容:{response.url}")
                 yield item
             else:
+                content=cx.filter_tags1(response.text)
                 item['Content'] = content
+                item['Type'] = "filter"
                 self.count_nocontent+=1
                 print(f"{self.count_nocontent}没有提取到内容：{response.url}")
         else:
