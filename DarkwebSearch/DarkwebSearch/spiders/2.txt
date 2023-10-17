@@ -1,0 +1,21 @@
+data leak
+Malware
+Viruses
+Trojans
+Worms
+Malicious Code
+Cyber Attacks
+Distributed Denial of Service
+SQL Injection
+Cross-Site Scripting
+Cross-Site Request Forgery
+Exploits
+Data Breaches
+Identity Theft
+Phishing
+Cybersecurity Policies
+IoT Security
+Cloud Security
+Mobile Security
+Cybersecurity Defense
+Network Monitoring

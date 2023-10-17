@@ -160,7 +160,7 @@ class UAMiddleware:
             ]
         ua=choice(USER_AGENT_LIST)
         request.headers["User-Agent"]=ua
-        print(ua)
+        #print(ua)
         return None
 
     # Add more proxy servers as needed
@@ -168,7 +168,7 @@ class ProxyMiddleware:
     def process_request(self, request, spider):
         proxy_mode = request.meta.get('proxy_mode', 'normal')  # 默认是普通模式
 
-        if proxy_mode == 'strict':
+        if proxy_mode == 'Tor':
             request.meta['proxy'] = "http://127.0.0.1:8118"  # 设置为暗网代理
         else:
             request.meta['proxy'] = "http://127.0.0.1:1080"  # 设置为普通代理

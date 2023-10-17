@@ -25,10 +25,11 @@ class SeekURLMongoDBPipeline:
           self.client=pymongo.MongoClient(host=MongoDB['host'],port=MongoDB['port'])
           db=self.client['local']
         #  db.authenticate("local","123456")
-          self.collection=db['test']#这个collection只需为空即可，不用创建列什么的
+          self.collection=db['darkweb7']#这个collection只需为空即可，不用创建列什么的
 
     def close_spider(self,spider):
         self.client.close()
     def process_item(self, item, spider):
-       self.collection.insert_one({"Description":item["Description"],"URL":item["URL"]})
+       self.collection.insert_one({"Keyword":item["Keyword"],"URL":item["URL"],"Description":item["Description"],"Content":item['Content']})
+       #print(item)
        return item

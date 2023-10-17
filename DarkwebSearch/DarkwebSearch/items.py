@@ -11,4 +11,6 @@ class DarkwebsearchItem(scrapy.Item):
     # name = scrapy.Field()
     Description=scrapy.Field()
     URL=scrapy.Field()
+    Content=scrapy.Field()
+    Keyword=scrapy.Field()
 
